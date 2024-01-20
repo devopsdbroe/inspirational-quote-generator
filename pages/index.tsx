@@ -10,7 +10,13 @@ import {
 	BackgroundImage2,
 	FooterContainer,
 	FooterLink,
-	GradientBackgroundCon,
+	GenerateQuoteButton,
+	GenerateQuoteButtonText,
+	GradientBackgroundContainer,
+	QuoteGeneratorContainer,
+	QuoteGeneratorInnerContainer,
+	QuoteGeneratorSubtitle,
+	QuoteGeneratorTitle,
 	RedSpan,
 } from "@/components/QuoteGenerator/QuoteGeneratorElements";
 
@@ -39,7 +45,38 @@ export default function Home() {
 				/>
 			</Head>
 			{/* Background */}
-			<GradientBackgroundCon>
+			<GradientBackgroundContainer>
+				{/* Quote Generator Modal Pop-Up */}
+				{/* <QuoteGeneratorModal /> */}
+
+				{/* Quote Generator */}
+				<QuoteGeneratorContainer>
+					<QuoteGeneratorInnerContainer>
+						<QuoteGeneratorTitle>
+							Daily Inspiration Generator
+						</QuoteGeneratorTitle>
+
+						<QuoteGeneratorSubtitle>
+							Looking for a splash of inspiration? Generate a quote card with a
+							random inspirational quote provided by{" "}
+							<FooterLink
+								href="https://zenquotes.io/"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								ZenQuotes API
+							</FooterLink>
+							.
+						</QuoteGeneratorSubtitle>
+						<GenerateQuoteButton>
+							<GenerateQuoteButtonText onClick={() => {}}>
+								Make a Quote
+							</GenerateQuoteButtonText>
+						</GenerateQuoteButton>
+					</QuoteGeneratorInnerContainer>
+				</QuoteGeneratorContainer>
+
+				{/* Background Images */}
 				<BackgroundImage1
 					src={Clouds1}
 					height="300"
@@ -50,7 +87,7 @@ export default function Home() {
 					height="300"
 					alt="cloudybackground1"
 				/>
-
+				{/* Footer */}
 				<FooterContainer>
 					<>
 						Quotes Generated: {numberOfQuotes}
@@ -65,7 +102,7 @@ export default function Home() {
 						</FooterLink>
 					</>
 				</FooterContainer>
-			</GradientBackgroundCon>
+			</GradientBackgroundContainer>
 		</>
 	);
 }
