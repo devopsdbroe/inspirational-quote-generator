@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Head from "next/head";
 import Image from "next/image";
@@ -23,9 +23,72 @@ import {
 // Assets
 import Clouds1 from "@/assets/cloud-and-thunder.png";
 import Clouds2 from "@/assets/cloudy-weather.png";
+import { Amplify } from "aws-amplify";
+import { GraphQLResult, generateClient } from "aws-amplify/api";
+import config from "../src/amplifyconfiguration.json";
+Amplify.configure(config);
+import { quotesQueryName } from "@/src/graphql/queries";
+
+// Interface for DynamoDB object
+interface UpdateQuoteInfoData {
+	id: string;
+	queryName: string;
+	quotesGenerated: number;
+	createdAt: string;
+	updatedAt: string;
+}
+
+// Type guard for fetch function
+function isGraphQLResultForquotesQueryName(
+	response: any
+): response is GraphQLResult<{
+	quotesQueryName: {
+		items: [UpdateQuoteInfoData];
+	};
+}> {
+	return (
+		response.data &&
+		response.data.quotesQueryName &&
+		response.data.quotesQueryName.items
+	);
+}
 
 export default function Home() {
 	const [numberOfQuotes, setNumberOfQuotes] = useState<Number | null>(0);
+
+	// Function to fetch our DynamoDB object (quotes generated)
+	const updateQuoteInfo = async () => {
+		try {
+			const client = generateClient();
+
+			const response = await client.graphql<UpdateQuoteInfoData>({
+				query: quotesQueryName,
+				authMode: "iam",
+				variables: {
+					queryName: "LIVE",
+				},
+			});
+
+			// Create type guards
+			if (!isGraphQLResultForquotesQueryName(response)) {
+				throw new Error("Unexpected response from API.graphql");
+			}
+
+			if (!response.data) {
+				throw new Error("Response data is undefined");
+			}
+
+			const receivedNumberOfQuotes =
+				response.data.quotesQueryName.items[0].quotesGenerated;
+			setNumberOfQuotes(receivedNumberOfQuotes);
+		} catch (error) {
+			console.log("Error getting quote data:", error);
+		}
+	};
+
+	useEffect(() => {
+		updateQuoteInfo();
+	}, []);
 
 	return (
 		<>

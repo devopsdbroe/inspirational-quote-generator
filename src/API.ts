@@ -276,7 +276,7 @@ export type ListQuoteAppDataQuery = {
   } | null,
 };
 
-export type QuoteQueryNameQueryVariables = {
+export type QuotesQueryNameQueryVariables = {
   queryName: string,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelQuoteAppDataFilterInput | null,
@@ -284,8 +284,8 @@ export type QuoteQueryNameQueryVariables = {
   nextToken?: string | null,
 };
 
-export type QuoteQueryNameQuery = {
-  quoteQueryName?:  {
+export type QuotesQueryNameQuery = {
+  quotesQueryName?:  {
     __typename: "ModelQuoteAppDataConnection",
     items:  Array< {
       __typename: "QuoteAppData",
