@@ -19,6 +19,7 @@ import {
 	QuoteGeneratorTitle,
 	RedSpan,
 } from "@/components/QuoteGenerator/QuoteGeneratorElements";
+import QuoteGeneratorModal from "@/components/QuoteGenerator";
 
 // Assets
 import Clouds1 from "@/assets/cloud-and-thunder.png";
@@ -55,6 +56,9 @@ function isGraphQLResultForquotesQueryName(
 
 export default function Home() {
 	const [numberOfQuotes, setNumberOfQuotes] = useState<Number | null>(0);
+	const [openGenerator, setOpenGenerator] = useState(false);
+	const [processingQuote, setProcessingQuote] = useState(false);
+	const [quoteReceived, setQuoteReceived] = useState<String | null>(null);
 
 	// Function to fetch our DynamoDB object (quotes generated)
 	const updateQuoteInfo = async () => {
@@ -90,6 +94,16 @@ export default function Home() {
 		updateQuoteInfo();
 	}, []);
 
+	// Functions for quote generator modal
+	const handleCloseGenerator = () => {
+		setOpenGenerator(false);
+	};
+
+	const handleOpenGenerator = async (e: React.SyntheticEvent) => {
+		e.preventDefault();
+		setOpenGenerator(true);
+	};
+
 	return (
 		<>
 			<Head>
@@ -110,7 +124,14 @@ export default function Home() {
 			{/* Background */}
 			<GradientBackgroundContainer>
 				{/* Quote Generator Modal Pop-Up */}
-				{/* <QuoteGeneratorModal /> */}
+				<QuoteGeneratorModal
+					open={openGenerator}
+					close={handleCloseGenerator}
+					processingQuote={processingQuote}
+					setProcessingQuote={setProcessingQuote}
+					quoteReceived={quoteReceived}
+					setQuoteReceived={setQuoteReceived}
+				/>
 
 				{/* Quote Generator */}
 				<QuoteGeneratorContainer>
@@ -132,7 +153,7 @@ export default function Home() {
 							.
 						</QuoteGeneratorSubtitle>
 						<GenerateQuoteButton>
-							<GenerateQuoteButtonText onClick={() => {}}>
+							<GenerateQuoteButtonText onClick={handleOpenGenerator}>
 								Make a Quote
 							</GenerateQuoteButtonText>
 						</GenerateQuoteButton>
