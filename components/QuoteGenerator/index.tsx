@@ -1,8 +1,14 @@
 import { Backdrop, Fade, Modal } from "@mui/material";
 import {
+	ModalCircularProgress,
 	QuoteGeneratorModalContainer,
 	QuoteGeneratorModalInnerContainer,
+	QuoteGeneratorSubtitle,
+	QuoteGeneratorTitle,
 } from "./QuoteGeneratorElements";
+import ImageBlob from "../animations/ImageBlob";
+import { ImageBlobContainer } from "../animations/AnimationElements";
+import AnimatedDownloadButton from "../animations/AnimatedDownloadButton";
 
 interface QuoteGeneratorModalProps {
 	open: boolean;
@@ -23,6 +29,9 @@ const QuoteGeneratorModal = ({
 	quoteReceived,
 	setQuoteReceived,
 }: QuoteGeneratorModalProps) => {
+	const wiseDevQuote = '"If you can center a div, anything is possible"';
+	const wiseDevQuoteAuthor = "- a wise senior software engineer";
+
 	return (
 		<Modal
 			id="quoteGeneratorModal"
@@ -36,7 +45,39 @@ const QuoteGeneratorModal = ({
 		>
 			<Fade in={open}>
 				<QuoteGeneratorModalContainer sx={style}>
-					<QuoteGeneratorModalInnerContainer></QuoteGeneratorModalInnerContainer>
+					<QuoteGeneratorModalInnerContainer>
+						{/* State #1: Processing request of quote + quote state is empty */}
+						{processingQuote === true && quoteReceived === null && (
+							<>
+								<ModalCircularProgress
+									size={"8rem"}
+									thickness={2.5}
+								/>
+								<QuoteGeneratorTitle>
+									Creating your quote...
+								</QuoteGeneratorTitle>
+								<QuoteGeneratorSubtitle style={{ marginTop: "20px" }}>
+									{wiseDevQuote}
+									<br />
+									<span style={{ fontSize: 26 }}>{wiseDevQuoteAuthor}</span>
+								</QuoteGeneratorSubtitle>
+							</>
+						)}
+
+						{/* State #2: Quote state fulfilled */}
+						{quoteReceived !== null && (
+							<>
+								<QuoteGeneratorTitle>Download your quote!</QuoteGeneratorTitle>
+								<QuoteGeneratorSubtitle style={{ marginTop: "20px" }}>
+									See a preview:
+								</QuoteGeneratorSubtitle>
+								<ImageBlobContainer>
+									<ImageBlob />
+								</ImageBlobContainer>
+								<AnimatedDownloadButton />
+							</>
+						)}
+					</QuoteGeneratorModalInnerContainer>
 				</QuoteGeneratorModalContainer>
 			</Fade>
 		</Modal>
