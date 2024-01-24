@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import { Backdrop, Fade, Modal } from "@mui/material";
 import {
 	ModalCircularProgress,
@@ -31,6 +33,21 @@ const QuoteGeneratorModal = ({
 }: QuoteGeneratorModalProps) => {
 	const wiseDevQuote = '"If you can center a div, anything is possible"';
 	const wiseDevQuoteAuthor = "- a wise senior software engineer";
+
+	const [blobUrl, setBlobUrl] = useState<String | null>(null);
+
+	// Function for handling the download of quote card
+	const handleDownload = () => {
+		const link = document.createElement("a");
+
+		if (typeof blobUrl === "string") {
+			link.href = blobUrl;
+			link.download = "quote.png";
+			link.click();
+		}
+	};
+
+	// Function to handle the receiving of quote card
 
 	return (
 		<Modal
@@ -72,9 +89,12 @@ const QuoteGeneratorModal = ({
 									See a preview:
 								</QuoteGeneratorSubtitle>
 								<ImageBlobContainer>
-									<ImageBlob />
+									<ImageBlob
+										quoteReceived={quoteReceived}
+										blobUrl={blobUrl}
+									/>
 								</ImageBlobContainer>
-								<AnimatedDownloadButton />
+								<AnimatedDownloadButton handleDownload={handleDownload} />
 							</>
 						)}
 					</QuoteGeneratorModalInnerContainer>
