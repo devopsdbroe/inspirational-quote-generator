@@ -34,7 +34,7 @@ const QuoteGeneratorModal = ({
 	const wiseDevQuote = '"If you can center a div, anything is possible"';
 	const wiseDevQuoteAuthor = "- a wise senior software engineer";
 
-	const [blobUrl, setBlobUrl] = useState<String | null>(null);
+	const [blobUrl, setBlobUrl] = useState<string | null>(null);
 
 	// Function for handling the download of quote card
 	const handleDownload = () => {
@@ -48,6 +48,19 @@ const QuoteGeneratorModal = ({
 	};
 
 	// Function to handle the receiving of quote card
+	useEffect(() => {
+		if (quoteReceived) {
+			const binaryData = Buffer.from(quoteReceived, "base64");
+			const blob = new Blob([binaryData], { type: "image/png" });
+			const blobUrlGenerated = URL.createObjectURL(blob);
+			console.log(blobUrlGenerated);
+			setBlobUrl(blobUrlGenerated);
+
+			return () => {
+				URL.revokeObjectURL(blobUrlGenerated);
+			};
+		}
+	}, [quoteReceived]);
 
 	return (
 		<Modal
