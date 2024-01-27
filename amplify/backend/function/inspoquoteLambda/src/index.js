@@ -32,14 +32,14 @@ async function updateQuoteDDBObject() {
 			Key: {
 				id: quoteObjectId,
 			},
-			UpdateExpression: "SET #quotesGeneratred = #quotesGenerated = :inc",
-			ExpressionAttributeValue: {
+			UpdateExpression: "SET #quotesGenerated = #quotesGenerated + :inc",
+			ExpressionAttributeValues: {
 				":inc": 1,
 			},
 			ExpressionAttributeNames: {
-				"#quotesGeneratred": "quotesGeneratred",
+				"#quotesGenerated": "quotesGenerated",
 			},
-			ReturnValue: "UPDATED_NEW",
+			ReturnValues: "UPDATED_NEW",
 		};
 
 		const updateQuoteObject = await docClient.update(quoteParams).promise();
@@ -160,7 +160,7 @@ exports.handler = async (event) => {
 
 		// Function to update DynamoDB object in table
 		try {
-			updateQuoteDDBObject();
+			await updateQuoteDDBObject();
 		} catch (error) {
 			console.log("Error updating quote object in DynamoDB:", error);
 		}
@@ -176,6 +176,5 @@ exports.handler = async (event) => {
 			isBase64Encoded: true,
 		};
 	}
-
 	return await getRandomQuote(apiURL);
 };
