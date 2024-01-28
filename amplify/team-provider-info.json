@@ -18,7 +18,7 @@
       "function": {
         "inspoquoteLambda": {
           "deploymentBucketName": "amplify-insporationalquote-dev-111450-deployment",
-          "s3Key": "amplify-builds/inspoquoteLambda-36704e492b3438444862-build.zip"
+          "s3Key": "amplify-builds/inspoquoteLambda-786b7a3763516d4c712f-build.zip"
         }
       },
       "api": {
