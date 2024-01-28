@@ -28,7 +28,16 @@ import { Amplify } from "aws-amplify";
 import { GraphQLResult, generateClient } from "aws-amplify/api";
 import config from "../src/amplifyconfiguration.json";
 Amplify.configure(config);
-import { quotesQueryName } from "@/src/graphql/queries";
+import { generateAQuote, quotesQueryName } from "@/src/graphql/queries";
+
+// Interface for appsync <> lambda JSON response
+interface GenerateAQuoteData {
+	generateAQuote: {
+		statusCode: number;
+		headers: { [key: string]: string };
+		body: string;
+	};
+}
 
 // Interface for DynamoDB object
 interface UpdateQuoteInfoData {
@@ -60,11 +69,11 @@ export default function Home() {
 	const [processingQuote, setProcessingQuote] = useState(false);
 	const [quoteReceived, setQuoteReceived] = useState<String | null>(null);
 
+	const client = generateClient();
+
 	// Function to fetch our DynamoDB object (quotes generated)
 	const updateQuoteInfo = async () => {
 		try {
-			const client = generateClient();
-
 			const response = await client.graphql<UpdateQuoteInfoData>({
 				query: quotesQueryName,
 				authMode: "iam",
@@ -106,10 +115,34 @@ export default function Home() {
 
 		try {
 			// Run Lambda function
+			const runFunction = "runFunciton";
+			const runFunctionStringified = JSON.stringify(runFunction);
+			const response = await client.graphql<GenerateAQuoteData>({
+				query: generateAQuote,
+				authMode: "iam",
+				variables: {
+					input: runFunctionStringified,
+				},
+			});
+			const responseStringified = JSON.stringify(response);
+			const responseReStringified = JSON.stringify(responseStringified);
+			const bodyIndex = responseReStringified.indexOf("body=") + 5;
+			const bodyAndBase64 = responseReStringified.substring(bodyIndex);
+			const bodyArray = bodyAndBase64.split(",");
+			const body = bodyArray[0];
+			console.log(body);
+			setQuoteReceived(body);
+
+			// End state:
+			setProcessingQuote(false);
+
+			// Fetch if any new quotes were generated from counter
+			updateQuoteInfo();
+
 			// setProcessingQuote(false);
-			setTimeout(() => {
-				setProcessingQuote(false);
-			}, 3000);
+			// setTimeout(() => {
+			// 	setProcessingQuote(false);
+			// }, 3000);
 		} catch (error) {
 			console.log("Error generating quote:", error);
 			setProcessingQuote(false);
