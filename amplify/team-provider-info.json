@@ -1,34 +1,28 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-inspirationalquotes-dev-95854-authRole",
-      "UnauthRoleArn": "arn:aws:iam::671199665567:role/amplify-inspirationalquotes-dev-95854-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::671199665567:role/amplify-inspirationalquotes-dev-95854-authRole",
+      "AuthRoleName": "amplify-insporationalquote-dev-111450-authRole",
+      "UnauthRoleArn": "arn:aws:iam::671199665567:role/amplify-insporationalquote-dev-111450-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::671199665567:role/amplify-insporationalquote-dev-111450-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-inspirationalquotes-dev-95854-deployment",
-      "UnauthRoleName": "amplify-inspirationalquotes-dev-95854-unauthRole",
-      "StackName": "amplify-inspirationalquotes-dev-95854",
-      "StackId": "arn:aws:cloudformation:us-east-1:671199665567:stack/amplify-inspirationalquotes-dev-95854/6ea39d40-b7a4-11ee-b157-0e26f9e7020d",
-      "AmplifyAppId": "d1h7xbhczk6tll"
+      "DeploymentBucketName": "amplify-insporationalquote-dev-111450-deployment",
+      "UnauthRoleName": "amplify-insporationalquote-dev-111450-unauthRole",
+      "StackName": "amplify-insporationalquote-dev-111450",
+      "StackId": "arn:aws:cloudformation:us-east-1:671199665567:stack/amplify-insporationalquote-dev-111450/5d9c5690-bdf8-11ee-b1a9-0e4c6e567c89",
+      "AmplifyAppId": "d2x5at9p7rhcg4"
     },
     "categories": {
       "auth": {
-        "inspirationalquotesf6ba7fdd": {}
+        "insporationalquoteb08b9f72": {}
       },
       "function": {
         "inspoquoteLambda": {
-          "deploymentBucketName": "amplify-inspirationalquotes-dev-95854-deployment",
-          "s3Key": "amplify-builds/inspoquoteLambda-546d583439754b6b6c50-build.zip"
+          "deploymentBucketName": "amplify-insporationalquote-dev-111450-deployment",
+          "s3Key": "amplify-builds/inspoquoteLambda-3933395a6a366f453443-build.zip"
         }
       },
       "api": {
-        "inspirationalquotes": {}
-      },
-      "hosting": {
-        "amplifyhosting": {
-          "appId": "d1h7xbhczk6tll",
-          "type": "cicd"
-        }
+        "insporationalquote": {}
       }
     }
   }

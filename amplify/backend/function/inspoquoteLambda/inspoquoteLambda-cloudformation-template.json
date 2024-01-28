@@ -16,9 +16,9 @@
     "s3Key": {
       "Type": "String"
     },
-    "apiinspirationalquotesGraphQLAPIIdOutput": {
+    "apiinsporationalquoteGraphQLAPIIdOutput": {
       "Type": "String",
-      "Default": "apiinspirationalquotesGraphQLAPIIdOutput"
+      "Default": "apiinsporationalquoteGraphQLAPIIdOutput"
     }
   },
   "Conditions": {
@@ -74,12 +74,12 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "API_INSPIRATIONALQUOTES_QUOTEAPPDATATABLE_NAME": {
+            "API_INSPORATIONALQUOTE_QUOTEAPPDATATABLE_NAME": {
               "Fn::ImportValue": {
-                "Fn::Sub": "${apiinspirationalquotesGraphQLAPIIdOutput}:GetAtt:QuoteAppDataTable:Name"
+                "Fn::Sub": "${apiinsporationalquoteGraphQLAPIIdOutput}:GetAtt:QuoteAppDataTable:Name"
               }
             },
-            "API_INSPIRATIONALQUOTES_QUOTEAPPDATATABLE_ARN": {
+            "API_INSPORATIONALQUOTE_QUOTEAPPDATATABLE_ARN": {
               "Fn::Join": [
                 "",
                 [
@@ -94,14 +94,14 @@
                   ":table/",
                   {
                     "Fn::ImportValue": {
-                      "Fn::Sub": "${apiinspirationalquotesGraphQLAPIIdOutput}:GetAtt:QuoteAppDataTable:Name"
+                      "Fn::Sub": "${apiinsporationalquoteGraphQLAPIIdOutput}:GetAtt:QuoteAppDataTable:Name"
                     }
                   }
                 ]
               ]
             },
-            "API_INSPIRATIONALQUOTES_GRAPHQLAPIIDOUTPUT": {
-              "Ref": "apiinspirationalquotesGraphQLAPIIdOutput"
+            "API_INSPORATIONALQUOTE_GRAPHQLAPIIDOUTPUT": {
+              "Ref": "apiinsporationalquoteGraphQLAPIIdOutput"
             }
           }
         },
@@ -122,12 +122,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "inspirationalquotesLambdaRole8cb30a99",
+            "insporationalquoteLambdaRoleb7ace17c",
             {
               "Fn::Join": [
                 "",
                 [
-                  "inspirationalquotesLambdaRole8cb30a99",
+                  "insporationalquoteLambdaRoleb7ace17c",
                   "-",
                   {
                     "Ref": "env"
@@ -243,7 +243,7 @@
                       ":table/",
                       {
                         "Fn::ImportValue": {
-                          "Fn::Sub": "${apiinspirationalquotesGraphQLAPIIdOutput}:GetAtt:QuoteAppDataTable:Name"
+                          "Fn::Sub": "${apiinsporationalquoteGraphQLAPIIdOutput}:GetAtt:QuoteAppDataTable:Name"
                         }
                       }
                     ]
@@ -264,7 +264,7 @@
                       ":table/",
                       {
                         "Fn::ImportValue": {
-                          "Fn::Sub": "${apiinspirationalquotesGraphQLAPIIdOutput}:GetAtt:QuoteAppDataTable:Name"
+                          "Fn::Sub": "${apiinsporationalquoteGraphQLAPIIdOutput}:GetAtt:QuoteAppDataTable:Name"
                         }
                       },
                       "/index/*"

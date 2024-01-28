@@ -1,0 +1,6 @@
+{
+  "AppSyncApiName": "insporationalquote",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2024-01-28T16:20:34.034Z"
+}

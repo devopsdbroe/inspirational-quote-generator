@@ -1,15 +1,15 @@
 {
   "api": {
-    "inspirationalquotes": {
+    "insporationalquote": {
       "dependsOn": [],
       "output": {
         "authConfig": {
           "additionalAuthenticationProviders": [
             {
               "apiKeyConfig": {
-                "apiKeyExpirationDate": "2024-01-27T15:39:47.361Z",
+                "apiKeyExpirationDate": "2024-02-04T16:20:33.134Z",
                 "apiKeyExpirationDays": 7,
-                "description": "API key for inspirational quote generator"
+                "description": "API key for insporational quote generator"
               },
               "authenticationType": "API_KEY"
             }
@@ -24,7 +24,7 @@
     }
   },
   "auth": {
-    "inspirationalquotesf6ba7fdd": {
+    "insporationalquoteb08b9f72": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -58,18 +58,11 @@
             "GraphQLAPIIdOutput"
           ],
           "category": "api",
-          "resourceName": "inspirationalquotes"
+          "resourceName": "insporationalquote"
         }
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
-    }
-  },
-  "hosting": {
-    "amplifyhosting": {
-      "lastPushTimeStamp": "2024-01-28T15:47:46.314Z",
-      "service": "amplifyhosting",
-      "type": "cicd"
     }
   },
   "parameters": {
@@ -86,22 +79,6 @@
         {
           "category": "function",
           "resourceName": "inspoquoteLambda"
-        }
-      ]
-    },
-    "AMPLIFY_hosting_amplifyhosting_appId": {
-      "usedBy": [
-        {
-          "category": "hosting",
-          "resourceName": "amplifyhosting"
-        }
-      ]
-    },
-    "AMPLIFY_hosting_amplifyhosting_type": {
-      "usedBy": [
-        {
-          "category": "hosting",
-          "resourceName": "amplifyhosting"
         }
       ]
     }
