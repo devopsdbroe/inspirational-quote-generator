@@ -106,6 +106,8 @@ export default function Home() {
 	// Functions for quote generator modal
 	const handleCloseGenerator = () => {
 		setOpenGenerator(false);
+		setProcessingQuote(false);
+		setQuoteReceived(null);
 	};
 
 	const handleOpenGenerator = async (e: React.SyntheticEvent) => {
