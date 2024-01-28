@@ -10,9 +10,16 @@ Amplify Params - DO NOT EDIT */
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
 
-// AWS packages
-const AWS = require("aws-sdk");
-const docClient = new AWS.DynamoDB.DocumentClient();
+// Import AWS packages
+const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
+const {
+	DynamoDBDocumentClient,
+	UpdateCommand,
+} = require("@aws-sdk/lib-dynamodb");
+
+// Initialize the DynamoDB Document Client
+const ddbClient = new DynamoDBClient({ region: process.env.REGION });
+const docClient = DynamoDBDocumentClient.from(ddbClient);
 
 // Image generation packages
 const sharp = require("sharp");
@@ -42,7 +49,9 @@ async function updateQuoteDDBObject() {
 			ReturnValues: "UPDATED_NEW",
 		};
 
-		const updateQuoteObject = await docClient.update(quoteParams).promise();
+		const updateQuoteObject = await docClient.send(
+			new UpdateCommand(quoteParams)
+		);
 		return updateQuoteObject;
 	} catch (error) {
 		console.log("Error updating quote object in DynamoDB:", error);
